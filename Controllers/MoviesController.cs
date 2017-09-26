@@ -17,7 +17,7 @@ namespace web_theater.Controllers
         //     new Movie("IT", "A clown and several boys"),
         //     new Movie("Lassie", "A dog and a boy")
         // };
-        public MoviesController(TheaterContext db)
+        public MoviesController(TheaterContext db) //required stuff to make it work
         {
             _db = db;
             // Values.Add(new Movie("Blade", "Some Vampires and a boy"));
@@ -34,41 +34,38 @@ namespace web_theater.Controllers
         [HttpGet("{id}")]
         public Movie Get(int id)
         {
-            // var request = id - 1;
-            // if (request < Values.Count && request > -1)
-            // {
-            //     return Values[request];
-            // }
             return _db.Movies.Find(id);
         }
 
         [HttpGet("{banana}")]
         public IEnumerable<Movie> Get(string banana)
         {
-            // return Values.Find(x => x.Title.Contains(banana));
             return _db.Movies.Where(m => m.Title.Contains(banana)).ToList();
-        }
-
-
-        public string Get(int x, bool b)
-        {
-            return "cool";
         }
 
         // POST api/values
         [HttpPost]
-        public IEnumerable<Movie> Post([FromBody]Movie value)
+        public string Post([FromBody]Movie value)
         {
             // Values.Add(value);
             _db.Movies.Add(value);
             _db.SaveChanges();
-            return _db.Movies;
+            return "Success";
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public string Put(int id, [FromBody]Movie value)
         {
+            var movie = _db.Movies.Find(id);
+            if(movie != null)
+            {
+                movie.Title = value.Title;
+                movie.Description = value.Description;
+                _db.SaveChanges();
+                return "success";
+            }
+            return "That didn't work";
         }
 
         // DELETE api/values/5

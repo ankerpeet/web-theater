@@ -24,8 +24,8 @@ namespace web_theater
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TheaterContext>(); //to start using entity framework
             services.AddMvc();
-            services.AddDbContext<TheaterContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

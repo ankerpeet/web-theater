@@ -25,7 +25,8 @@ namespace webtheater.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

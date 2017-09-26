@@ -10,7 +10,7 @@ using web_theater;
 namespace webtheater.Migrations
 {
     [DbContext(typeof(TheaterContext))]
-    [Migration("20170926114427_InitialCreate")]
+    [Migration("20170926180344_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,7 +26,8 @@ namespace webtheater.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
